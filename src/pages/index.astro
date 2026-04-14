@@ -1,0 +1,322 @@
+---
+import Layout from '../layouts/Layout.astro';
+import property from '../data/property.json';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "name": "9432 Oakmore Rd — Luxury 5BR Rental | Beverlywood Los Angeles",
+    "description": property.description,
+    "url": "https://rentlaelite.pages.dev",
+    "image": [
+      `https://rentlaelite.pages.dev${property.images.hero}`,
+      `https://rentlaelite.pages.dev${property.images.exterior[0]}`,
+      `https://rentlaelite.pages.dev${property.images.outdoor[0]}`
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": property.address.street,
+      "addressLocality": property.address.city,
+      "addressRegion": property.address.state,
+      "postalCode": property.address.zip,
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.0503",
+      "longitude": "-118.3847"
+    },
+    "numberOfRooms": property.beds,
+    "floorSize": {
+      "@type": "QuantitativeValue",
+      "value": property.sqft,
+      "unitCode": "FTK"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": property.price,
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": property.price,
+        "priceCurrency": "USD",
+        "unitText": "MON"
+      }
+    },
+    "broker": {
+      "@type": "RealEstateAgent",
+      "name": property.agent.name,
+      "telephone": property.agent.phone,
+      "email": property.agent.email,
+      "identifier": `DRE# ${property.agent.dre}`
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": property.video.title,
+    "description": property.video.description,
+    "thumbnailUrl": property.video.thumbnailUrl,
+    "uploadDate": "2025-01-22",
+    "contentUrl": property.video.url,
+    "embedUrl": property.video.embedUrl,
+    "publisher": {
+      "@type": "Person",
+      "name": property.agent.name
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rentlaelite.pages.dev/" }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Luxury 5BR Rental Beverlywood LA 90035 | 9432 Oakmore Rd — $23,950/mo"
+  description="Gated 5-bed luxury compound in Beverlywood, LA 90035. Heated pool, steam sauna, chef's kitchen, detached guest house. $23,950/mo. Virtual tour available."
+  jsonLd={jsonLd}
+>
+  <!-- HERO -->
+  <section class="relative h-screen min-h-[600px] flex items-end bg-charcoal overflow-hidden">
+    <img
+      src={property.images.hero}
+      alt="9432 Oakmore Rd aerial view — gated luxury compound in Beverlywood Los Angeles 90035"
+      class="absolute inset-0 w-full h-full object-cover opacity-65"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
+      <p class="text-gold text-xs tracking-[0.3em] uppercase mb-4">Beverlywood · Los Angeles, CA 90035 · MLS# {property.mlsNumber}</p>
+      <h1 class="font-serif text-white text-4xl md:text-6xl lg:text-7xl leading-tight mb-4">
+        9432 Oakmore Rd<br />
+        <span class="text-gold">Luxury Gated Compound</span>
+      </h1>
+      <p class="text-white/60 text-base md:text-lg max-w-2xl mb-6">
+        5 beds · 6 baths · 4,092 sq ft · Heated pool · Detached guest house · Beverlywood / Pico-Robertson
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="/property" class="bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold-light transition-colors duration-200">
+          View Property
+        </a>
+        <a href="#video-tour" class="border border-white/40 text-white text-xs tracking-widest uppercase px-8 py-4 hover:border-gold hover:text-gold transition-colors duration-200">
+          ▶ Watch Video Tour
+        </a>
+        <a href="/contact" class="border border-gold/50 text-gold text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold hover:text-charcoal transition-colors duration-200">
+          Schedule Showing
+        </a>
+        <span class="font-serif text-2xl text-white ml-auto">{property.priceDisplay}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY STATS -->
+  <section class="bg-charcoal border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-3 md:grid-cols-6 gap-px bg-white/10">
+      {[
+        ['5', 'Bedrooms'],
+        ['6', 'Baths'],
+        ['4,092', 'Sq Ft'],
+        ['~400', 'Guest House'],
+        ['$23,950', 'Per Month'],
+        ['90035', 'ZIP Code'],
+      ].map(([val, label]) => (
+        <div class="bg-charcoal text-center py-8 px-2">
+          <p class="font-serif text-gold text-2xl md:text-3xl mb-1">{val}</p>
+          <p class="text-white/40 text-xs tracking-widest uppercase">{label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- VIDEO TOUR -->
+  <section id="video-tour" class="bg-charcoal py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-10">
+        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Virtual Tour</p>
+        <h2 class="font-serif text-white text-3xl md:text-4xl">Video Walkthrough</h2>
+        <p class="text-white/40 mt-3 text-sm">Full property tour — interior, exterior, pool & guest house</p>
+      </div>
+      <div class="relative w-full aspect-video bg-black">
+        <iframe
+          src={`${property.video.embedUrl}?rel=0&modestbranding=1&color=white`}
+          title={property.video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          class="absolute inset-0 w-full h-full"
+        ></iframe>
+      </div>
+      <p class="text-white/30 text-xs text-center mt-4">9432 Oakmore Rd · Beverlywood, Los Angeles CA 90035</p>
+    </div>
+  </section>
+
+  <!-- AERIAL STRIP -->
+  <section class="grid grid-cols-4 gap-px bg-charcoal">
+    {property.images.aerial.map((src, i) => (
+      <div class="overflow-hidden bg-charcoal aspect-video">
+        <img
+          src={src}
+          alt={`9432 Oakmore Rd aerial drone view ${i + 1} — Beverlywood luxury compound Los Angeles`}
+          class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-500"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </section>
+
+  <!-- ABOUT THE PROPERTY -->
+  <section class="py-24 bg-off-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Beverlywood · 90035</p>
+        <h2 class="font-serif text-charcoal text-3xl md:text-5xl mb-4">Rare Dual-Structure Luxury Estate</h2>
+        <p class="text-charcoal/50 max-w-2xl mx-auto text-base leading-relaxed">
+          One of the few gated compounds in Beverlywood offering a main residence plus a fully independent
+          detached guest house on a single lot — ~4,492 sq ft of combined living space.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-4">
+          <img
+            src={property.images.exterior[0]}
+            alt="9432 Oakmore Rd front exterior — modern luxury home for rent in Beverlywood Los Angeles"
+            class="w-full aspect-[4/3] object-cover"
+            loading="lazy"
+          />
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src={property.images.outdoor[0]}
+              alt="Heated pool at 9432 Oakmore Rd luxury rental Los Angeles"
+              class="w-full aspect-square object-cover"
+              loading="lazy"
+            />
+            <img
+              src={property.images.guestHouse[0]}
+              alt="Detached guest house at 9432 Oakmore Rd Beverlywood"
+              class="w-full aspect-square object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="space-y-6">
+          <p class="text-charcoal/70 leading-relaxed text-lg">{property.description}</p>
+          <ul class="space-y-3">
+            {[
+              'Drone aerial footage — exceptional curb appeal',
+              'Heated in-ground pool & spa with landscaped yard',
+              'Steam sauna in spa-style primary suite',
+              'Chef\'s kitchen — dual sinks, dual ovens, island',
+              'Detached ~400 sq ft self-contained guest house',
+              'Smart lighting + Ring security + multi-zone HVAC',
+              'Gated driveway + EV charging station',
+              'Walk-in closet, sauna, in-unit washer/dryer',
+            ].map((feat) => (
+              <li class="flex items-start gap-3 text-sm text-charcoal/70">
+                <span class="mt-1.5 w-1.5 h-1.5 bg-gold rounded-full shrink-0"></span>
+                {feat}
+              </li>
+            ))}
+          </ul>
+          <div class="flex gap-4 pt-2">
+            <a href="/property" class="inline-block bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-6 py-3 hover:bg-gold-light transition-colors">
+              Full Details
+            </a>
+            <a href="/gallery" class="inline-block border border-charcoal/20 text-charcoal text-xs tracking-widest uppercase px-6 py-3 hover:border-gold hover:text-gold transition-colors">
+              Photo Gallery
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERIOR PHOTO GRID -->
+  <section class="bg-charcoal py-2">
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-px">
+      {[
+        ...property.images.living.slice(0, 2),
+        ...property.images.kitchen.slice(0, 2),
+        ...property.images.primarySuite.slice(0, 2),
+      ].map((src, i) => (
+        <a href="/gallery" class="overflow-hidden block aspect-square bg-charcoal/50">
+          <img
+            src={src}
+            alt={`9432 Oakmore Rd interior Los Angeles luxury rental photo ${i + 1}`}
+            class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-500"
+            loading="lazy"
+          />
+        </a>
+      ))}
+    </div>
+    <div class="text-center py-8">
+      <a href="/gallery" class="text-gold text-xs tracking-[0.3em] uppercase hover:text-gold-light transition-colors">
+        View Full Gallery ({Object.values(property.images).flat().length}+ Photos) →
+      </a>
+    </div>
+  </section>
+
+  <!-- LOCATION + LEASE SUMMARY -->
+  <section class="py-24 bg-off-white">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Prime West LA Location</p>
+        <h2 class="font-serif text-charcoal text-3xl md:text-4xl mb-4">Beverlywood / Pico-Robertson, 90035</h2>
+        <p class="text-charcoal/60 leading-relaxed mb-6">
+          Located on a quiet, tree-lined street in one of LA's most sought-after residential neighborhoods.
+          The 90035 corridor sits at the intersection of Beverly Hills, Century City, and Culver City —
+          offering unmatched access to dining, entertainment, healthcare, and major studios.
+        </p>
+        <ul class="grid grid-cols-2 gap-3 mb-8">
+          {property.nearbyLandmarks.map((place) => (
+            <li class="flex items-center gap-2 text-sm text-charcoal/60">
+              <span class="w-1.5 h-1.5 bg-gold/60 rounded-full shrink-0"></span>
+              {place}
+            </li>
+          ))}
+        </ul>
+        <div class="bg-charcoal/5 border border-charcoal/10 p-6 text-sm">
+          <p class="text-xs tracking-widest uppercase text-charcoal/40 mb-4">Application Requirements</p>
+          <ul class="space-y-2 text-charcoal/60">
+            <li>→ CAR rental application</li>
+            <li>→ Full credit report ($49.99, paid by tenant)</li>
+            <li>→ Proof of income / funds</li>
+            <li>→ All documents submitted as single PDF</li>
+            <li>→ 24-hour notice for showings · Agent accompanies all visits</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-charcoal text-white p-8">
+        <p class="text-xs tracking-widest uppercase text-white/40 mb-6">Lease Summary</p>
+        <dl class="space-y-4 text-sm mb-8">
+          {[
+            ['Monthly Rent', property.priceDisplay],
+            ['Security Deposit', property.leaseTerms.securityDeposit],
+            ['Minimum Lease', property.leaseTerms.minimum],
+            ['Preferred Lease', property.leaseTerms.preferred],
+            ['Furnished', 'Unfurnished (optional add-on)'],
+            ['Pets', 'Considered with conditions'],
+            ['Parking', 'Gated driveway + EV charging'],
+            ['Short-Term', 'Not permitted'],
+          ].map(([label, val]) => (
+            <div class="flex justify-between border-b border-white/10 pb-4">
+              <dt class="text-white/40">{label}</dt>
+              <dd class="font-medium text-right">{val}</dd>
+            </div>
+          ))}
+        </dl>
+        <a href="/contact" class="block text-center bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-6 py-4 hover:bg-gold-light transition-colors duration-200 mb-3">
+          Schedule a Showing
+        </a>
+        <a href={`tel:${property.agent.phone.replace(/-/g, '')}`} class="block text-center border border-white/20 text-white/70 text-xs tracking-widest uppercase px-6 py-4 hover:border-gold hover:text-gold transition-colors">
+          Call {property.agent.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,57 @@
+---
+const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'Property', href: '/property' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const current = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-charcoal/95 backdrop-blur-sm border-b border-gold/20">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+    <a href="/" class="font-serif text-gold text-lg tracking-widest uppercase">
+      Rent LA Elite
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      {nav.map(({ label, href }) => (
+        <a
+          href={href}
+          class={`text-sm tracking-widest uppercase transition-colors duration-200 ${
+            current === href || (href !== '/' && current.startsWith(href))
+              ? 'text-gold'
+              : 'text-white/70 hover:text-gold'
+          }`}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+    <a
+      href="/contact"
+      class="hidden md:inline-block bg-gold text-charcoal text-xs font-bold tracking-widest uppercase px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
+    >
+      Inquire
+    </a>
+    <!-- Mobile menu toggle (no-JS fallback: links stack on small screens) -->
+    <details class="md:hidden group">
+      <summary class="text-white cursor-pointer list-none select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </summary>
+      <div class="absolute top-16 left-0 right-0 bg-charcoal border-t border-gold/20 py-4 px-6 flex flex-col gap-4">
+        {nav.map(({ label, href }) => (
+          <a href={href} class="text-sm tracking-widest uppercase text-white/80 hover:text-gold transition-colors">
+            {label}
+          </a>
+        ))}
+        <a href="/contact" class="bg-gold text-charcoal text-xs font-bold tracking-widest uppercase px-5 py-2.5 text-center">
+          Inquire
+        </a>
+      </div>
+    </details>
+  </div>
+</header>
