@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rentlaelite.pages.dev/sitemap-index.xml
+Sitemap: https://rentlaelite.theissakgroup.workers.dev/sitemap-index.xml

@@ -15,7 +15,7 @@ const {
   type = 'website',
 } = Astro.props;
 
-const siteUrl = 'https://rentlaelite.pages.dev';
+const siteUrl = 'https://rentlaelite.theissakgroup.workers.dev';
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).href;
 
