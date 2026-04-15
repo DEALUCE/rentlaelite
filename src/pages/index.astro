@@ -2,6 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 import property from '../data/property.json';
 
+const dna = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>`,
+    label: 'EV Charging', sub: 'On-site station'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636"/></svg>`,
+    label: 'Steam Sauna', sub: 'Primary suite'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>`,
+    label: 'Gated Security', sub: 'Ring + auto gate'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 3.185-9 7.5S7.03 18 12 18s9-3.185 9-7.5S16.97 3 12 3zm0 0v15m0-15C9 3 6.5 6.5 6.5 10.5M12 3c3 0 5.5 3.5 5.5 7.5M3 10.5h18"/></svg>`,
+    label: 'Heated Pool', sub: 'Gas-heated, filtered'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/></svg>`,
+    label: "Chef's Kitchen", sub: 'Dual ovens & sinks'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"/></svg>`,
+    label: 'Guest House', sub: '~400 sq ft ADU'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"/></svg>`,
+    label: 'Smart Home', sub: 'Multi-zone HVAC + lighting'
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`,
+    label: '4,492 Sq Ft', sub: 'Combined living space'
+  },
+];
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -22,35 +57,16 @@ const jsonLd = [
       "postalCode": property.address.zip,
       "addressCountry": "US"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "34.0503",
-      "longitude": "-118.3847"
-    },
+    "geo": { "@type": "GeoCoordinates", "latitude": "34.0503", "longitude": "-118.3847" },
     "numberOfRooms": property.beds,
-    "floorSize": {
-      "@type": "QuantitativeValue",
-      "value": property.sqft,
-      "unitCode": "FTK"
-    },
+    "floorSize": { "@type": "QuantitativeValue", "value": property.sqft, "unitCode": "FTK" },
     "offers": {
       "@type": "Offer",
       "price": property.price,
       "priceCurrency": "USD",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": property.price,
-        "priceCurrency": "USD",
-        "unitText": "MON"
-      }
+      "priceSpecification": { "@type": "UnitPriceSpecification", "price": property.price, "priceCurrency": "USD", "unitText": "MON" }
     },
-    "broker": {
-      "@type": "RealEstateAgent",
-      "name": property.agent.name,
-      "telephone": property.agent.phone,
-      "email": property.agent.email,
-      "identifier": `DRE# ${property.agent.dre}`
-    }
+    "broker": { "@type": "RealEstateAgent", "name": property.agent.name, "telephone": property.agent.phone, "email": property.agent.email }
   },
   {
     "@context": "https://schema.org",
@@ -60,18 +76,7 @@ const jsonLd = [
     "thumbnailUrl": property.video.thumbnailUrl,
     "uploadDate": "2025-01-22",
     "contentUrl": property.video.url,
-    "embedUrl": property.video.embedUrl,
-    "publisher": {
-      "@type": "Person",
-      "name": property.agent.name
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rentlaelite.theissakgroup.workers.dev/" }
-    ]
+    "embedUrl": property.video.embedUrl
   }
 ];
 ---
@@ -81,68 +86,272 @@ const jsonLd = [
   description="Gated 5-bed luxury compound in Beverlywood, LA 90035. Heated pool, steam sauna, chef's kitchen, detached guest house. $23,950/mo. Virtual tour available."
   jsonLd={jsonLd}
 >
-  <!-- HERO -->
-  <section class="relative h-screen min-h-[600px] flex items-end bg-charcoal overflow-hidden">
-    <img
-      src={property.images.hero}
-      alt="9432 Oakmore Rd aerial view — gated luxury compound in Beverlywood Los Angeles 90035"
-      class="absolute inset-0 w-full h-full object-cover opacity-65"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
-      <p class="text-gold text-xs tracking-[0.3em] uppercase mb-4">Beverlywood · Los Angeles, CA 90035 · MLS# {property.mlsNumber}</p>
-      <h1 class="font-serif text-white text-4xl md:text-6xl lg:text-7xl leading-tight mb-4">
-        9432 Oakmore Rd<br />
-        <span class="text-gold">Luxury Gated Compound</span>
-      </h1>
-      <p class="text-white/60 text-base md:text-lg max-w-2xl mb-6">
-        5 beds · 6 baths · 4,092 sq ft · Heated pool · Detached guest house · Beverlywood / Pico-Robertson
-      </p>
-      <div class="flex flex-wrap items-center gap-4">
-        <a href="/property" class="bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold-light transition-colors duration-200">
-          View Property
-        </a>
-        <a href="#video-tour" class="border border-white/40 text-white text-xs tracking-widest uppercase px-8 py-4 hover:border-gold hover:text-gold transition-colors duration-200">
-          ▶ Watch Video Tour
-        </a>
-        <a href="/contact" class="border border-gold/50 text-gold text-xs tracking-widest uppercase px-8 py-4 hover:bg-gold hover:text-charcoal transition-colors duration-200">
-          Schedule Showing
-        </a>
-        <span class="font-serif text-2xl text-white ml-auto">{property.priceDisplay}</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- KEY STATS -->
-  <section class="bg-charcoal border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-3 md:grid-cols-6 gap-px bg-white/10">
-      {[
-        ['5', 'Bedrooms'],
-        ['6', 'Baths'],
-        ['4,092', 'Sq Ft'],
-        ['~400', 'Guest House'],
-        ['$23,950', 'Per Month'],
-        ['90035', 'ZIP Code'],
-      ].map(([val, label]) => (
-        <div class="bg-charcoal text-center py-8 px-2">
-          <p class="font-serif text-gold text-2xl md:text-3xl mb-1">{val}</p>
-          <p class="text-white/40 text-xs tracking-widest uppercase">{label}</p>
+  <!-- ═══════════════════════════════════════ CINEMATIC HERO -->
+  <section class="relative h-screen min-h-[700px] flex items-center overflow-hidden">
+
+    <!-- Ken Burns background -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src={property.images.hero}
+        alt="9432 Oakmore Rd aerial — gated luxury compound Beverlywood Los Angeles 90035"
+        class="w-full h-full object-cover animate-ken-burns origin-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-midnight-950/95 via-midnight-950/60 to-midnight-950/20"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-midnight-950 via-transparent to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Left: Hero Copy -->
+      <div class="animate-fade-up">
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-6 flex items-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          Beverlywood · Los Angeles, CA 90035
+        </p>
+        <h1 class="font-display text-5xl md:text-7xl leading-[1.05] mb-6">
+          <span class="text-white">9432</span><br />
+          <span class="text-white">Oakmore</span><br />
+          <em class="text-gradient not-italic">Compound</em>
+        </h1>
+        <p class="text-slate-300 text-lg leading-relaxed max-w-md mb-8">
+          A gated dual-structure estate in prime Beverlywood — 5 bedrooms, heated pool,
+          steam sauna, and a fully independent guest house.
+        </p>
+        <div class="flex flex-wrap gap-4 mb-10">
+          {[
+            ['5', 'Beds'],
+            ['6', 'Baths'],
+            ['4,492', 'Sq Ft'],
+          ].map(([val, label]) => (
+            <div class="text-center">
+              <p class="font-display text-3xl text-amber-400">{val}</p>
+              <p class="text-xs text-slate-500 tracking-widest uppercase">{label}</p>
+            </div>
+          ))}
+          <div class="w-px bg-midnight-700 self-stretch mx-2"></div>
+          <div>
+            <p class="font-display text-3xl text-white">$23,950</p>
+            <p class="text-xs text-slate-500 tracking-widest uppercase">Per Month</p>
+          </div>
         </div>
-      ))}
+        <div class="flex flex-wrap gap-4">
+          <a href="/property" class="bg-amber-400 text-midnight-950 font-semibold text-xs tracking-widest uppercase px-8 py-4 hover:bg-amber-300 transition-all duration-300 amber-glow-hover">
+            Explore Property
+          </a>
+          <a href="#video" class="glass text-white text-xs tracking-widest uppercase px-8 py-4 hover:border-amber-400/40 transition-all duration-300 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full border border-amber-400 flex items-center justify-center">
+              <svg class="w-2.5 h-2.5 text-amber-400 ml-0.5" fill="currentColor" viewBox="0 0 8 10"><path d="M0 0l8 5-8 5V0z"/></svg>
+            </span>
+            Video Tour
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Glassmorphism Inquiry Card -->
+      <div class="hidden lg:block">
+        <div class="glass rounded-none p-8 amber-glow max-w-sm ml-auto animate-fade-in">
+          <p class="text-amber-400 text-xs tracking-[0.3em] uppercase mb-6">Schedule a Private Showing</p>
+          <form class="space-y-4" name="hero-inquiry" method="POST" action="/contact">
+            <input type="hidden" name="form-name" value="hero-inquiry" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              class="w-full bg-midnight-950/60 border border-slate-700 text-white placeholder-slate-500 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              class="w-full bg-midnight-950/60 border border-slate-700 text-white placeholder-slate-500 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              class="w-full bg-midnight-950/60 border border-slate-700 text-white placeholder-slate-500 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+            />
+            <select
+              name="lease-length"
+              class="w-full bg-midnight-950/60 border border-slate-700 text-slate-400 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+            >
+              <option value="">Intended Stay</option>
+              <option value="30-days">30–60 Days</option>
+              <option value="60-days">60–90 Days</option>
+              <option value="6-months">6 Months</option>
+              <option value="12-months">12+ Months</option>
+            </select>
+            <button
+              type="submit"
+              class="w-full bg-amber-400 text-midnight-950 font-semibold text-xs tracking-widest uppercase py-4 hover:bg-amber-300 transition-all duration-300"
+            >
+              Request Showing
+            </button>
+          </form>
+          <p class="text-slate-600 text-xs text-center mt-4">24-hour notice required · Agent accompanies all showings</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce">
+      <p class="text-slate-600 text-xs tracking-widest uppercase">Discover</p>
+      <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" />
+      </svg>
     </div>
   </section>
 
-  <!-- VIDEO TOUR -->
-  <section id="video-tour" class="bg-charcoal py-20">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-10">
-        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Virtual Tour</p>
-        <h2 class="font-serif text-white text-3xl md:text-4xl">Video Walkthrough</h2>
-        <p class="text-white/40 mt-3 text-sm">Full property tour — interior, exterior, pool & guest house</p>
+  <!-- ═══════════════════════════════════════ PROPERTY DNA -->
+  <section class="py-24 bg-midnight-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-4 flex items-center justify-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          What Sets It Apart
+          <span class="w-8 h-px bg-amber-400"></span>
+        </p>
+        <h2 class="font-display text-4xl md:text-5xl text-white">Property <em class="text-gradient">DNA</em></h2>
       </div>
-      <div class="relative w-full aspect-video bg-black">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-midnight-800/50">
+        {dna.map(({ icon, label, sub }) => (
+          <div class="glass-light p-8 flex flex-col items-center text-center gap-4 group hover:border-amber-400/20 transition-all duration-500">
+            <div class="text-amber-400 group-hover:scale-110 transition-transform duration-300" set:html={icon} />
+            <div>
+              <p class="text-white font-medium text-sm">{label}</p>
+              <p class="text-slate-500 text-xs mt-1">{sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ AERIAL STRIP -->
+  <section class="grid grid-cols-4 gap-px bg-midnight-950">
+    {property.images.aerial.map((src, i) => (
+      <div class="overflow-hidden aspect-video">
+        <img
+          src={src}
+          alt={`9432 Oakmore Rd aerial drone view ${i+1} — Beverlywood luxury compound`}
+          class="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-700"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </section>
+
+  <!-- ═══════════════════════════════════════ DESCRIPTION + POOL IMAGE -->
+  <section class="py-28 bg-midnight-950">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div>
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          The Estate
+        </p>
+        <h2 class="font-display text-4xl md:text-5xl text-white mb-8 leading-tight">
+          Rare Dual-Structure<br /><em class="text-gradient">Luxury Compound</em>
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-6 text-base">{property.description}</p>
+        <p class="text-slate-400 leading-relaxed text-sm mb-10">
+          Positioned on a quiet tree-lined street in the coveted 90035 corridor —
+          minutes from Century City, Beverly Hills, Fox Studios, and Cedars-Sinai.
+          Offered unfurnished with furnishings available at an additional monthly fee.
+        </p>
+        <div class="flex gap-4">
+          <a href="/property" class="bg-amber-400 text-midnight-950 font-semibold text-xs tracking-widest uppercase px-7 py-3.5 hover:bg-amber-300 transition-all duration-300 amber-glow-hover">
+            Full Details
+          </a>
+          <a href="/gallery" class="border border-slate-700 text-slate-300 text-xs tracking-widest uppercase px-7 py-3.5 hover:border-amber-400 hover:text-amber-400 transition-all duration-300">
+            Gallery
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <img
+          src={property.images.outdoor[0]}
+          alt="Heated pool at 9432 Oakmore Rd luxury rental Los Angeles Beverlywood"
+          class="w-full aspect-[4/3] object-cover"
+          loading="lazy"
+        />
+        <div class="absolute -bottom-6 -left-6 glass p-5 w-48">
+          <p class="font-display text-3xl text-amber-400">~4,492</p>
+          <p class="text-xs text-slate-400 tracking-widest uppercase mt-1">Sq Ft Combined</p>
+        </div>
+        <div class="absolute -top-4 -right-4 w-24 h-24 border border-amber-400/20"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ LEASE SUMMARY TABLE -->
+  <section class="py-24 bg-midnight-900">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-4 flex items-center justify-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          Financial Summary
+          <span class="w-8 h-px bg-amber-400"></span>
+        </p>
+        <h2 class="font-display text-4xl text-white">Lease <em class="text-gradient">Terms</em></h2>
+      </div>
+
+      <div class="glass border border-amber-400/10 overflow-hidden">
+        <!-- Table header -->
+        <div class="bg-amber-400/5 border-b border-amber-400/10 px-8 py-4 flex justify-between items-center">
+          <span class="text-amber-400 text-xs tracking-widest uppercase">9432 Oakmore Rd · Los Angeles CA 90035</span>
+          <span class="text-slate-500 text-xs">MLS# {property.mlsNumber}</span>
+        </div>
+
+        <!-- Table rows -->
+        <div class="divide-y divide-white/5">
+          {[
+            ['Monthly Rent', '$23,950', true],
+            ['Security Deposit', '$26,850', false],
+            ['Minimum Lease Term', '6 Months', false],
+            ['Preferred Lease', '12+ Months', false],
+            ['Furnished', 'Unfurnished (optional add-on)', false],
+            ['Pets', 'Considered with conditions', false],
+            ['Parking', 'Gated driveway + EV charging station', false],
+            ['Utilities', 'Tenant responsible (not included)', false],
+            ['Pool Maintenance', 'Tenant responsible', false],
+            ['Short-Term Stays', 'Not permitted', false],
+            ['Credit Report', '$49.99 — paid by tenant', false],
+          ].map(([label, value, highlight]) => (
+            <div class={`px-8 py-5 flex justify-between items-center ${highlight ? 'bg-amber-400/5' : ''}`}>
+              <span class="text-slate-400 text-sm">{label}</span>
+              <span class={`font-medium text-sm text-right ${highlight ? 'font-display text-2xl text-amber-400' : 'text-white'}`}>
+                {value}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Table footer -->
+        <div class="bg-midnight-950/60 px-8 py-6 flex flex-col sm:flex-row gap-4 justify-between items-center border-t border-amber-400/10">
+          <p class="text-slate-500 text-xs">Application: CAR application · Credit report · Proof of income · Submit as single PDF</p>
+          <a href="/contact" class="shrink-0 bg-amber-400 text-midnight-950 font-semibold text-xs tracking-widest uppercase px-8 py-3.5 hover:bg-amber-300 transition-all duration-300 amber-glow-hover">
+            Apply Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ VIDEO -->
+  <section id="video" class="py-24 bg-midnight-950">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-4 flex items-center justify-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          Virtual Experience
+          <span class="w-8 h-px bg-amber-400"></span>
+        </p>
+        <h2 class="font-display text-4xl text-white">Cinematic <em class="text-gradient">Property Tour</em></h2>
+      </div>
+      <div class="relative w-full aspect-video glass border border-amber-400/10 overflow-hidden">
         <iframe
           src={`${property.video.embedUrl}?rel=0&modestbranding=1&color=white`}
           title={property.video.title}
@@ -152,171 +361,83 @@ const jsonLd = [
           class="absolute inset-0 w-full h-full"
         ></iframe>
       </div>
-      <p class="text-white/30 text-xs text-center mt-4">9432 Oakmore Rd · Beverlywood, Los Angeles CA 90035</p>
     </div>
   </section>
 
-  <!-- AERIAL STRIP -->
-  <section class="grid grid-cols-4 gap-px bg-charcoal">
-    {property.images.aerial.map((src, i) => (
-      <div class="overflow-hidden bg-charcoal aspect-video">
+  <!-- ═══════════════════════════════════════ PHOTO STRIP -->
+  <section class="grid grid-cols-3 md:grid-cols-6 gap-px bg-midnight-950">
+    {[...property.images.living.slice(0,2), ...property.images.kitchen.slice(0,2), ...property.images.primarySuite.slice(0,2)].map((src, i) => (
+      <a href="/gallery" class="overflow-hidden block aspect-square">
         <img
           src={src}
-          alt={`9432 Oakmore Rd aerial drone view ${i + 1} — Beverlywood luxury compound Los Angeles`}
-          class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-500"
+          alt={`9432 Oakmore Rd interior photo ${i+1} — luxury rental Los Angeles`}
+          class="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-700"
           loading="lazy"
         />
-      </div>
+      </a>
     ))}
   </section>
+  <div class="bg-midnight-950 text-center py-8 border-t border-white/5">
+    <a href="/gallery" class="text-amber-400 text-xs tracking-[0.3em] uppercase hover:text-amber-300 transition-colors">
+      View Full Gallery →
+    </a>
+  </div>
 
-  <!-- ABOUT THE PROPERTY -->
-  <section class="py-24 bg-off-white">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Beverlywood · 90035</p>
-        <h2 class="font-serif text-charcoal text-3xl md:text-5xl mb-4">Rare Dual-Structure Luxury Estate</h2>
-        <p class="text-charcoal/50 max-w-2xl mx-auto text-base leading-relaxed">
-          One of the few gated compounds in Beverlywood offering a main residence plus a fully independent
-          detached guest house on a single lot — ~4,492 sq ft of combined living space.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div class="space-y-4">
-          <img
-            src={property.images.exterior[0]}
-            alt="9432 Oakmore Rd front exterior — modern luxury home for rent in Beverlywood Los Angeles"
-            class="w-full aspect-[4/3] object-cover"
-            loading="lazy"
-          />
-          <div class="grid grid-cols-2 gap-4">
-            <img
-              src={property.images.outdoor[0]}
-              alt="Heated pool at 9432 Oakmore Rd luxury rental Los Angeles"
-              class="w-full aspect-square object-cover"
-              loading="lazy"
-            />
-            <img
-              src={property.images.guestHouse[0]}
-              alt="Detached guest house at 9432 Oakmore Rd Beverlywood"
-              class="w-full aspect-square object-cover"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="space-y-6">
-          <p class="text-charcoal/70 leading-relaxed text-lg">{property.description}</p>
-          <ul class="space-y-3">
-            {[
-              'Drone aerial footage — exceptional curb appeal',
-              'Heated in-ground pool & spa with landscaped yard',
-              'Steam sauna in spa-style primary suite',
-              'Chef\'s kitchen — dual sinks, dual ovens, island',
-              'Detached ~400 sq ft self-contained guest house',
-              'Smart lighting + Ring security + multi-zone HVAC',
-              'Gated driveway + EV charging station',
-              'Walk-in closet, sauna, in-unit washer/dryer',
-            ].map((feat) => (
-              <li class="flex items-start gap-3 text-sm text-charcoal/70">
-                <span class="mt-1.5 w-1.5 h-1.5 bg-gold rounded-full shrink-0"></span>
-                {feat}
-              </li>
-            ))}
-          </ul>
-          <div class="flex gap-4 pt-2">
-            <a href="/property" class="inline-block bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-6 py-3 hover:bg-gold-light transition-colors">
-              Full Details
-            </a>
-            <a href="/gallery" class="inline-block border border-charcoal/20 text-charcoal text-xs tracking-widest uppercase px-6 py-3 hover:border-gold hover:text-gold transition-colors">
-              Photo Gallery
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERIOR PHOTO GRID -->
-  <section class="bg-charcoal py-2">
-    <div class="grid grid-cols-3 md:grid-cols-6 gap-px">
-      {[
-        ...property.images.living.slice(0, 2),
-        ...property.images.kitchen.slice(0, 2),
-        ...property.images.primarySuite.slice(0, 2),
-      ].map((src, i) => (
-        <a href="/gallery" class="overflow-hidden block aspect-square bg-charcoal/50">
-          <img
-            src={src}
-            alt={`9432 Oakmore Rd interior Los Angeles luxury rental photo ${i + 1}`}
-            class="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-500"
-            loading="lazy"
-          />
-        </a>
-      ))}
-    </div>
-    <div class="text-center py-8">
-      <a href="/gallery" class="text-gold text-xs tracking-[0.3em] uppercase hover:text-gold-light transition-colors">
-        View Full Gallery ({Object.values(property.images).flat().length}+ Photos) →
-      </a>
-    </div>
-  </section>
-
-  <!-- LOCATION + LEASE SUMMARY -->
-  <section class="py-24 bg-off-white">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+  <!-- ═══════════════════════════════════════ LOCATION -->
+  <section class="py-24 bg-midnight-900">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div>
-        <p class="text-gold text-xs tracking-[0.3em] uppercase mb-3">Prime West LA Location</p>
-        <h2 class="font-serif text-charcoal text-3xl md:text-4xl mb-4">Beverlywood / Pico-Robertson, 90035</h2>
-        <p class="text-charcoal/60 leading-relaxed mb-6">
-          Located on a quiet, tree-lined street in one of LA's most sought-after residential neighborhoods.
-          The 90035 corridor sits at the intersection of Beverly Hills, Century City, and Culver City —
-          offering unmatched access to dining, entertainment, healthcare, and major studios.
+        <p class="text-amber-400 text-xs tracking-[0.4em] uppercase mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-amber-400"></span>
+          Prime West LA
         </p>
-        <ul class="grid grid-cols-2 gap-3 mb-8">
-          {property.nearbyLandmarks.map((place) => (
-            <li class="flex items-center gap-2 text-sm text-charcoal/60">
-              <span class="w-1.5 h-1.5 bg-gold/60 rounded-full shrink-0"></span>
-              {place}
+        <h2 class="font-display text-4xl md:text-5xl text-white mb-6">
+          Beverlywood<br /><em class="text-gradient">90035</em>
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-8">
+          The most centrally located luxury neighborhood in West LA — equidistant
+          from every major business, entertainment, and medical hub in the city.
+        </p>
+        <ul class="grid grid-cols-2 gap-3">
+          {[
+            ['8 min', 'Century City'],
+            ['10 min', 'Beverly Hills'],
+            ['12 min', 'Culver City'],
+            ['15 min', 'Santa Monica'],
+            ['10 min', 'Fox Studios'],
+            ['10 min', 'Cedars-Sinai'],
+          ].map(([time, place]) => (
+            <li class="flex items-center gap-3 text-sm">
+              <span class="text-amber-400 font-medium w-14 shrink-0">{time}</span>
+              <span class="text-slate-400">{place}</span>
             </li>
           ))}
         </ul>
-        <div class="bg-charcoal/5 border border-charcoal/10 p-6 text-sm">
-          <p class="text-xs tracking-widest uppercase text-charcoal/40 mb-4">Application Requirements</p>
-          <ul class="space-y-2 text-charcoal/60">
-            <li>→ CAR rental application</li>
-            <li>→ Full credit report ($49.99, paid by tenant)</li>
-            <li>→ Proof of income / funds</li>
-            <li>→ All documents submitted as single PDF</li>
-            <li>→ 24-hour notice for showings · Agent accompanies all visits</li>
-          </ul>
-        </div>
       </div>
-      <div class="bg-charcoal text-white p-8">
-        <p class="text-xs tracking-widest uppercase text-white/40 mb-6">Lease Summary</p>
-        <dl class="space-y-4 text-sm mb-8">
+      <div class="glass border border-amber-400/10 p-8">
+        <p class="text-amber-400 text-xs tracking-widest uppercase mb-2">9432 Oakmore Rd</p>
+        <p class="font-display text-2xl text-white mb-1">Beverlywood / Pico-Robertson</p>
+        <p class="text-slate-500 text-sm mb-8">Los Angeles, CA 90035</p>
+        <div class="space-y-4 text-sm mb-8">
           {[
-            ['Monthly Rent', property.priceDisplay],
-            ['Security Deposit', property.leaseTerms.securityDeposit],
-            ['Minimum Lease', property.leaseTerms.minimum],
-            ['Preferred Lease', property.leaseTerms.preferred],
-            ['Furnished', 'Unfurnished (optional add-on)'],
-            ['Pets', 'Considered with conditions'],
-            ['Parking', 'Gated driveway + EV charging'],
-            ['Short-Term', 'Not permitted'],
+            ['Neighborhood', 'Beverlywood / Pico-Robertson'],
+            ['ZIP Code', '90035'],
+            ['County', 'Los Angeles'],
+            ['Cross Street', 'S Beverly Dr'],
+            ['Lot Size', '7,283 sq ft (60x121)'],
+            ['Year Built', '1940 (Modern renovation)'],
           ].map(([label, val]) => (
-            <div class="flex justify-between border-b border-white/10 pb-4">
-              <dt class="text-white/40">{label}</dt>
-              <dd class="font-medium text-right">{val}</dd>
+            <div class="flex justify-between border-b border-white/5 pb-4">
+              <span class="text-slate-500">{label}</span>
+              <span class="text-white">{val}</span>
             </div>
           ))}
-        </dl>
-        <a href="/contact" class="block text-center bg-gold text-charcoal font-bold text-xs tracking-widest uppercase px-6 py-4 hover:bg-gold-light transition-colors duration-200 mb-3">
+        </div>
+        <a href="/contact" class="block text-center bg-amber-400 text-midnight-950 font-semibold text-xs tracking-widest uppercase py-4 hover:bg-amber-300 transition-all duration-300 amber-glow-hover">
           Schedule a Showing
-        </a>
-        <a href={`tel:${property.agent.phone.replace(/-/g, '')}`} class="block text-center border border-white/20 text-white/70 text-xs tracking-widest uppercase px-6 py-4 hover:border-gold hover:text-gold transition-colors">
-          Call {property.agent.phone}
         </a>
       </div>
     </div>
   </section>
+
 </Layout>
